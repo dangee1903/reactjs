@@ -28,7 +28,7 @@ const ThutucLeft = (props) =>{
             ]
         });
         data = abc.getAll(data);
-            console.log(data.then( (data) => { setDatatablehs(data) })
+            data.then( (data) => { setDatatablehs(data) }
         );
     },[]);
     return(

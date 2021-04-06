@@ -1,11 +1,13 @@
 import React, {useEffect , Component , useState } from 'react';
+import { DomElement } from 'htmlparser2';
 import Dot from './../assets/images/doticon.svg';
 import Plus from './../assets/images/plus.svg';
 import FeatchThutuc from '../services/FetchThutuc';
 import { render } from '@testing-library/react';
+import parse from 'html-react-parser';
+import ThutucRightItem from './ThutucRightItem';
 const ThutucRight = (props) =>{
-    const [datatablehs, setDatatablehs] = useState(null);
-    const [data, setData] = useState({content:[]});
+    const [datatablehs, setDatatablehs] = useState({content:[]});
     const abc = new FeatchThutuc();
     useEffect( () => {
         let data = JSON.stringify({
@@ -29,8 +31,7 @@ const ThutucRight = (props) =>{
             ]
         });
         data = abc.getAll(data);
-        data.then( (data) => {  });
-        if(data != []){setDatatablehs(data)}else{ setDatatablehs([]);}
+        data.then( (data) => { setDatatablehs(data) });
     },[]);
     return(
         <div className="col-md-9 right">
@@ -95,22 +96,11 @@ const ThutucRight = (props) =>{
                                 <th >Hoạt động</th>
                             </tr>
                         </thead>
-                        {showData(datatablehs)}
+                        {/* <ThutucRightItem item={datatablehs}/> */}
                     </table>
                 </div>
             </div>
         </div>
     )
-    function showData(data){
-        let xhtml = "";
-        console.log(data);
-        if( data.content !== null && data.length > 0 ){
-            xhtml = data.map( (item,index) => {
-                console.log(item);
-                return <tr><td >{item.thuTuc_Ma}</td></tr>
-            })
-        }
-        return <tbody>{xhtml}</tbody>
-    }
 } 
 export default ThutucRight;
