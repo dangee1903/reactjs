@@ -1,4 +1,4 @@
-import React, {useEffect , Component } from 'react';
+import React from 'react';
 import Dot from './../assets/images/doticon.svg';
 import Logo from './../assets/images/CYBERcare.png';
 const Header = (props) =>  {

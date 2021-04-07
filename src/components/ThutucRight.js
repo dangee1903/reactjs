@@ -1,13 +1,15 @@
-import React, {useEffect , Component , useState } from 'react';
-import { DomElement } from 'htmlparser2';
-import Dot from './../assets/images/doticon.svg';
-import Plus from './../assets/images/plus.svg';
+import React, {useEffect , useState , useMemo } from 'react';
 import FeatchThutuc from '../services/FetchThutuc';
-import { render } from '@testing-library/react';
-import parse from 'html-react-parser';
-import ThutucRightItem from './ThutucRightItem';
+import Moment from 'react-moment';
+import Filter from './Filter';
+import Pagination from './Pagination';
 const ThutucRight = (props) =>{
-    const [datatablehs, setDatatablehs] = useState({content:[]});
+    const [datatablehs, setDatatablehs] = useState([{content:[]}]);
+    const [search, setSearch] = useState("");
+    const [guiBH, setGuiBH] = useState(3);
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 10;
     const abc = new FeatchThutuc();
     useEffect( () => {
         let data = JSON.stringify({
@@ -31,8 +33,33 @@ const ThutucRight = (props) =>{
             ]
         });
         data = abc.getAll(data);
-        data.then( (data) => { setDatatablehs(data) });
+        data.then( (data) => { setDatatablehs(data.content)});
     },[]);
+
+    const tabledata = useMemo(() => {
+        let tabledata = datatablehs;
+        if (search) {
+            tabledata = tabledata.filter(
+                data =>
+                    data.thuTucTen.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+        setTotalItems(tabledata.length);
+        console.log(guiBH);
+        if (guiBH === 3) {
+            tabledata = tabledata;            
+        }else if (guiBH != 3){
+            tabledata = tabledata.filter(
+                data =>
+                    data.trangThaiGui == guiBH
+            );
+        }
+        console.log(tabledata);
+        return tabledata.slice(
+            (currentPage - 1) * ITEMS_PER_PAGE,
+            (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+        );
+    }, [datatablehs,search,guiBH,currentPage]);
     return(
         <div className="col-md-9 right">
             <div className="col-12">
@@ -40,63 +67,47 @@ const ThutucRight = (props) =>{
                     <div className="left">
                         <h2>Danh sách người lao động</h2>
                     </div>
-                    <div className="right">
-                        <p>Trang</p>
-                        <ul>
-                            <li><a href="/#">&lt;</a></li>
-                            <li><a href="/#">1</a></li>
-                            <li><a href="/#">2</a></li>
-                            <li><a href="/#">3</a></li>
-                            <li><a href="/#">&gt;</a></li>
-                        </ul>
-                        <p>Trên 369</p>
-                    </div>
+                    <Pagination 
+                        total={totalItems}
+                        itemsPerPage={ITEMS_PER_PAGE}
+                        currentPage={currentPage}
+                        onPageChange={page => setCurrentPage(page)}
+                    />
                 </div>
-                <form action="#">
-                    <select name="slct" id="slct" defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Chọn kỳ kê khai</option>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                    </select>
-                    <select name="slct" id="slct" defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Năm</option>
-                        <option value={1}>2020</option>
-                        <option value={2}>2021</option>
-                        <option value={3}>2022</option>
-                    </select>
-                    <select name="slct" id="slct" defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Trạng thái ký</option>
-                        <option value={1}>Tất cả</option>
-                        <option value={2}>Chưa gửi</option>
-                    </select>
-                    <select name="slct" id="slct" defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Trạng gửi BHXH</option>
-                        <option value={1}>Tất cả</option>
-                        <option value={2}>Chưa gửi</option>
-                    </select>
-                    <div className="form__wrap">
-                        <label >Tìm kiếm</label>
-                        <input type="text" placeholder="Điền thông tin..." />
-                    </div>
-                    <button type="submit"><img src={Plus} alt="" /></button>
-                </form>
+                <Filter 
+                    onSearch={value => {setSearch(value)}}
+                    onGuiBH={value => {setGuiBH(value)}} 
+                />
                 <div className="table" style={{overflow: 'auto'}}>
                     <table>
                         <thead>
                             <tr>
-                                <th>STT<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th>Số<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th>Mã thủ tục<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Tên thủ tục<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Kỳ kê khai<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Trạng thái ký<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Trạng thái gửi BH<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Ngày tạo<i><img src="img/arrowTop.svg" alt="" /></i></th>
-                                <th >Hoạt động</th>
+                                <th scope="col">STT<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Số<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Mã thủ tục<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Tên thủ tục<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Kỳ kê khai<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Trạng thái ký<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Trạng thái gửi BH<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Ngày tạo<i><img src="img/arrowTop.svg" alt="" /></i></th>
+                                <th scope="col">Hoạt động</th>
                             </tr>
                         </thead>
-                        {/* <ThutucRightItem item={datatablehs}/> */}
+                        <tbody>
+                            {tabledata.map( (data,index) => (
+                                <tr key={index}>
+                                    <td key={data.id}>{data.id}</td>
+                                    <td></td>
+                                    <td>{data.thuTucMa}</td>
+                                    <td className="bold">{data.thuTucTen}</td>
+                                    <td>{data.kyKeKhai}</td>
+                                    <td>{data.trangThaiKy === 0 ? "Chưa ký" : 1 ? "Đã ký" : 2 ? "Không biết" : "" }</td>
+                                    <td>{data.trangThaiGui === 0 ? "Chưa gửi" : 1 ? "Đã gửi" : 2 ? "Không biết" : "" }</td>
+                                    <td><Moment format="DD/MM/YYYY">{data.ngayTao}</Moment></td>
+                                    <td>Hoạt động</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>
