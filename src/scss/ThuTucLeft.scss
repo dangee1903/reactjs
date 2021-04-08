@@ -1,0 +1,37 @@
+.botton{
+    h2{
+        cursor: pointer;
+    }
+    ul{
+        li{
+            height: 100px!important;
+            cursor: pointer;
+        }
+    }
+}
+.disabled{
+    pointer-events: none;
+    background: rgb(247, 247, 247)!important;
+}
+td.bold {
+    white-space: break-spaces!important;
+}
+th i{
+    cursor: pointer;
+    img{
+        &.active{
+            transform: rotate(180deg);
+        }
+    }
+}
+.plus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    img{
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+    }
+}

@@ -10,7 +10,6 @@ import ThutucRight from './../components/ThutucRight';
 import { render } from '@testing-library/react';
 export default () => {
   const { keycloak } = useKeycloak()
-
   const axiosInstance = useAxios('http://localhost:5000') // see https://github.com/panz3r/jwt-checker-server for a quick implementation
   const callApi = useCallback(() => {
     !!axiosInstance.current && axiosInstance.current.get('/jwt/decode')
