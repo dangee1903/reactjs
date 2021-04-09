@@ -41,7 +41,6 @@ const ThutucRight = (props) =>{
         data = abc.getAll(data);
         data.then( (data) => { setDatatablehs(data.content)});
     },[]);
-
     const tabledata = useMemo(() => {
         let tabledata = datatablehs;
         if (search) {
@@ -72,7 +71,6 @@ const ThutucRight = (props) =>{
                     reversed * a[sortingField.field].localeCompare(b[sortingField.field])
             );
         }
-        console.log(sortingField);
         setTotalItems(tabledata.length);
         return tabledata.slice(
             (currentPage - 1) * ITEMS_PER_PAGE,

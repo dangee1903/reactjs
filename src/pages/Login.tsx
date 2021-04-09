@@ -7,7 +7,7 @@ import { useKeycloak } from '@react-keycloak/web'
 const LoginPage = () => {
   const location = useLocation<{ [key: string]: unknown }>()
   const currentLocationState = location.state || {
-    from: { pathname: '/home' },
+    from: { pathname: '/' },
   }
 
   const { keycloak } = useKeycloak()

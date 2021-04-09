@@ -1,21 +1,37 @@
 import React from 'react';
 import Dot from './../assets/images/doticon.svg';
 import Logo from './../assets/images/CYBERcare.png';
+import {
+    BrowserRouter as Router,
+    useRouteMatch,
+    Link
+} from "react-router-dom";
 const Header = (props) =>  {
+        const OldSchoolMenuLink = ({ label, to, activeOnlyWhenExact }) => {
+            let match = useRouteMatch({
+                path: to,
+                exact: activeOnlyWhenExact
+            });
+        
+            return (
+            <li className={match ? "active" : ""}>
+                <Link to={to}>{label}</Link>
+            </li>
+            );
+        }
         return (
             <div>
                 <header>
                     <div className="wrap container-fluid">
                         <div className="left">
-                            <a href="/"><img src={Logo} alt="" /></a>
+                            <Link to="/"><img src={Logo} alt="" /></Link>
                             <h1 className="hidden">CyberCare</h1>
                             <ul className="menu">
-                            <li><a href="/#">Người <br />lao động</a></li>
-                            <li><a href="/#">Đơn vị</a></li>
-                            <li><a href="/#">Tra cứu</a></li>
-                            <li><a href="/#">Phòng ban</a></li>
-                            <li><a href="/#">Nhật ký <br />hoạt động</a></li>
-                            <li className="qltk"><a href="/#">Quản lý tài khoản</a></li>
+                            <OldSchoolMenuLink
+                                activeOnlyWhenExact={true}
+                                to="/thutuc"
+                                label="Thủ tục"
+                            />
                             </ul>
                         </div>
                         <div className="user right">

@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
 
 import { useKeycloak } from '@react-keycloak/web'
 
-import HomePage from '../pages/Home'
-import LoginPage from '../pages/Login'
-
+import HomePage   from '../pages/Home'
+import LoginPage  from '../pages/Login'
+import ThuTucPage from '../pages/ThuTuc'
 import { PrivateRoute } from './utils'
 
 export const AppRouter = () => {
@@ -17,8 +17,9 @@ export const AppRouter = () => {
 
   return (
     <Router>
-      <Redirect from="/" to="/home" />
-      <PrivateRoute path="/home" component={HomePage} />
+      <Redirect from="/" to="/" />
+      <PrivateRoute exact={true} path="/" component={HomePage} />
+      <PrivateRoute path="/thutuc" component={ThuTucPage} />
       <Route path="/login" component={LoginPage} />
     </Router>
   )

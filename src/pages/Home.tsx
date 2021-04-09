@@ -18,12 +18,18 @@ export default () => {
    <div>
       <Header />
       <main className="home">
-         <Title />
+         {/* <Title /> */}
          <section className="content">
             <div className="content__wrap container-fluid">
                <div className="row">
-                  <ThutucLeft />
-                  <ThutucRight />
+                  {/* <ThutucLeft />
+                  <ThutucRight /> */}
+      {/* {!!keycloak?.authenticated && (
+         <button type="button" onClick={() => keycloak.logout()}>
+            Logout
+         </button>
+      )} */}
+
                </div>
             </div>
          </section>

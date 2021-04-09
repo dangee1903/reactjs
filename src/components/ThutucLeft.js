@@ -4,6 +4,13 @@ import Featch from './../services/FetchHinhthucnop';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import './../scss/ThuTucLeft.scss';
 import {actSearch}  from './../actions/index';
+import {
+    BrowserRouter as Router,
+    useRouteMatch,
+    Link,
+    Switch,
+    Route
+} from "react-router-dom";
 const ThutucLeft = (props) =>{
     // const dispatch = useDispatch()
     const [datatablehs, setDatatablehs] = useState([]);
@@ -63,8 +70,15 @@ const ThutucLeft = (props) =>{
                     <h2 onClick={ () => {changeSearch("")}} >Tất cả các thủ tục</h2>
                     <ul>
                         {dataTable.map((data,index)=>(
-                            <li onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>{data.thuTuc_Ma}<br></br>{data.thuTuc_Ten}</li>
+                            <Link to={`thutuc/${data.thuTuc_Ma}`} >{data.thuTuc_Ten}</Link>
+                            // console.log(data)
+                            // <li onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>{data.thuTuc_Ma}<br></br>{data.thuTuc_Ten}</li>
                         ))}
+                                <Switch>
+                                <Route path="/thutuc/:id">
+                                    <p>Dang</p>
+                                </Route>
+                                </Switch>
                     </ul>
                 </div>
             </div>
