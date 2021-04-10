@@ -4,7 +4,6 @@ import ThuTucLeft from './../components/ThutucLeft'
 import ThuTucRight from './../components/ThutucRight'
 import Title from './../components/Title'
 const Thutuc = (props : any) =>{
-    console.log(props);
     return(
         <div>
             <Header />

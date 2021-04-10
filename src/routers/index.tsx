@@ -17,7 +17,7 @@ export const AppRouter = () => {
 
   return (
     <Router>
-      <Redirect from="/" to="/" />
+      {/* <Redirect from="/" to="/" /> */}
       <PrivateRoute exact={true} path="/" component={HomePage} />
       <PrivateRoute path="/thutuc" component={ThuTucPage} />
       <Route path="/login" component={LoginPage} />

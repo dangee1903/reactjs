@@ -1,50 +1,35 @@
 import React, {useEffect , useState , useMemo } from 'react';
 import Plus from './../assets/images/plus.svg';
-import Featch from './../services/FetchHinhthucnop';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import Fetch from '../services/FetchHinhthucnop';
+import FetchNguoiLaoDong from '../services/FetchNguoiLaoDong';
+import { connect} from 'react-redux';
 import './../scss/ThuTucLeft.scss';
-import {actSearch}  from './../actions/index';
-import {
-    BrowserRouter as Router,
-    useRouteMatch,
-    Link,
-    Switch,
-    Route
-} from "react-router-dom";
+import {actSearch}  from '../actions/index';
+import axios from 'axios'
+
 const ThutucLeft = (props) =>{
-    // const dispatch = useDispatch()
     const [datatablehs, setDatatablehs] = useState([]);
     const [search,setSearch]            = useState(null);
-    const abc = new Featch();
-    // const abv = useSelector(store => store)
+    const [dataParam,setDataParam]      = useState(null);
+    const abc = new Fetch();
+    const getData = async () =>{
+        const data = await abc.getAll();
+        if(data){
+            setDatatablehs(data);
+        }
+    }
+    const getDataLaoDong = async () =>{
+        const data = await abc.getAll();
+        if(data){
+            setDatatablehs(data);
+        }
+    }
     useEffect( () => {
-        let data = JSON.stringify({
-            "kyKeKhai": 2020,
-            "lanKeKhai": 20,
-            "bhD01": [
-                {
-                    "thutucId": "100",
-                    "donviMa": "TTP001",
-                    "donviTen": "TTP Plaza",
-                    "tenBangKe": "ABC",
-                    "tenthutuckemtheo": "XYZ",
-                    "chitiet": [
-                        {
-                            "nguoilaodongId": 100,
-                            "donviMa": "TTP001",
-                            "donviTen": "TTP Plaza",
-                            "hoTen": "Le Duy Hiep"
-                        }
-                    ]
-                }
-            ]
-        });
-        data = abc.getAll(data);
-            data.then( (data) => { setDatatablehs(data) }
-        );
+        const data = getData();
     },[]);
     const changeSearch = (value) => {
         props.changeSearchValue(value);
+        setDataParam(value);
     }
     const dataTable = useMemo(()=>{
         let dataThutuc = datatablehs;
@@ -57,6 +42,9 @@ const ThutucLeft = (props) =>{
         }
         return dataThutuc;
     },[datatablehs,search])
+    const dataLaodong = useMemo( ()=>{
+
+    },[dataParam])
     return(
         <div className="col-md-3 left">
             <div className="col-12">
@@ -70,15 +58,16 @@ const ThutucLeft = (props) =>{
                     <h2 onClick={ () => {changeSearch("")}} >Tất cả các thủ tục</h2>
                     <ul>
                         {dataTable.map((data,index)=>(
-                            <Link to={`thutuc/${data.thuTuc_Ma}`} >{data.thuTuc_Ten}</Link>
-                            // console.log(data)
-                            // <li onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>{data.thuTuc_Ma}<br></br>{data.thuTuc_Ten}</li>
+                            <li onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>
+                                <div className="left">
+                                    {data.thuTuc_Ma}<br></br>
+                                    {data.thuTuc_Ten}
+                                </div>
+                                <div className="right">
+                                    <img src={Plus}></img>
+                                </div>
+                            </li>
                         ))}
-                                <Switch>
-                                <Route path="/thutuc/:id">
-                                    <p>Dang</p>
-                                </Route>
-                                </Switch>
                     </ul>
                 </div>
             </div>

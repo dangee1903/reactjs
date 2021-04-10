@@ -3,7 +3,6 @@ let defaultSate = "";
 const query = (state = defaultSate,action) => {
     switch(action.type){
         case types.SEARCH:
-            console.log(action);
             state = action.value;
             return state;
         default:

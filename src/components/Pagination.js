@@ -21,9 +21,9 @@ const Pagination = ({total = 0,itemsPerPage = 10,currentPage = 1,onPageChange}) 
             <div className="right">
                 <p>Trang</p>
                 <ul>
-                    <li onClick={() => onPageChange(currentPage - 1)} className={currentPage == 1 ? "disabled" : ""} >&lt;</li>
+                    <li onClick={() => onPageChange(currentPage - 1)} className={currentPage === 1 ? "disabled" : ""} >&lt;</li>
                     {paginationItems}
-                    <li onClick={() => onPageChange(currentPage + 1)} className={currentPage == totalPages ? "disabled" : ""}>&gt;</li>
+                    <li onClick={() => onPageChange(currentPage + 1)} className={currentPage === totalPages ? "disabled" : ""}>&gt;</li>
                 </ul>
                 <p>Trên {totalPages}</p>
             </div>

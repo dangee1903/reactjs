@@ -3,9 +3,7 @@ import { useCallback } from 'react'
 import { useKeycloak } from '@react-keycloak/web'
 import { useAxios } from '../utils/hooks'
 import Header from './../components/Header';
-import Title from './../components/Title';
-import ThutucLeft from './../components/ThutucLeft';
-import ThutucRight from './../components/ThutucRight';
+
 // import Featch from './../services/FeatchApi';
 import { render } from '@testing-library/react';
 export default () => {
@@ -18,18 +16,9 @@ export default () => {
    <div>
       <Header />
       <main className="home">
-         {/* <Title /> */}
          <section className="content">
             <div className="content__wrap container-fluid">
                <div className="row">
-                  {/* <ThutucLeft />
-                  <ThutucRight /> */}
-      {/* {!!keycloak?.authenticated && (
-         <button type="button" onClick={() => keycloak.logout()}>
-            Logout
-         </button>
-      )} */}
-
                </div>
             </div>
          </section>

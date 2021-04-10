@@ -17,29 +17,14 @@ const ThutucRight = (props) =>{
     const [sortingField,setSorting]     = useState({ field: "", order : "ASC"});
     const ITEMS_PER_PAGE = 10;
     const abc = new FeatchThutuc();
+    const getData = async () => {
+        const data = await abc.getAll();
+        if(data){
+            setDatatablehs(data.content)
+        }
+    }
     useEffect( () => {
-        let data = JSON.stringify({
-            "lanKeKhai": 20,
-            "bhD01": [
-                {
-                    "thutucId": "100",
-                    "donviMa": "TTP001",
-                    "donviTen": "TTP Plaza",
-                    "tenBangKe": "ABC",
-                    "tenthutuckemtheo": "XYZ",
-                    "chitiet": [
-                        {
-                            "nguoilaodongId": 100,
-                            "donviMa": "TTP001",
-                            "donviTen": "TTP Plaza",
-                            "hoTen": "Le Duy Hiep"
-                        }
-                    ]
-                }
-            ]
-        });
-        data = abc.getAll(data);
-        data.then( (data) => { setDatatablehs(data.content)});
+        getData();
     },[]);
     const tabledata = useMemo(() => {
         let tabledata = datatablehs;
@@ -64,7 +49,6 @@ const ThutucRight = (props) =>{
             );
         }
         if(sortingField.field){
-            console.log(sortingField.field);
             const reversed = sortingField.order === "ASC" ? -1 : 1;
             tabledata = tabledata.sort(
                 (a, b) =>
@@ -115,7 +99,7 @@ const ThutucRight = (props) =>{
                             </tr>
                         </thead>
                         <tbody>
-                            {tabledata.map( (data,index) => (
+                            {(tabledata.length) > 1 ? tabledata.map( (data,index) => (
                                 <tr key={index}>
                                     <td key={data.id}>{index + 1}</td>
                                     <td></td>
@@ -127,7 +111,7 @@ const ThutucRight = (props) =>{
                                     <td><Moment format="DD/MM/YYYY">{data.ngayTao}</Moment></td>
                                     <td>Hoạt động</td>
                                 </tr>
-                            ))}
+                            )) : null}
                         </tbody>
                     </table>
                 </div>

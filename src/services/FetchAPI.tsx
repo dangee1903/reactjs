@@ -33,6 +33,8 @@ public async request(path: string, data: object, method: string) {
         return result.data;
     } catch (error) {
         console.log(JSON.stringify(error));
+        console.log(error);
+        
     } finally {
 
     }
@@ -41,8 +43,12 @@ public async request(path: string, data: object, method: string) {
         const {keycloak} = useKeycloak();
         const response = error.response;
         console.log(error);
+        
         if (response === undefined) {
             window.location.hash = "/500";
+        }
+        if (response && response.status === 404) {
+            window.location.hash = "/404";
         }
         if (response && response.status === 401) {
             keycloak.logout();
