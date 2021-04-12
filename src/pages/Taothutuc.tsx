@@ -5,16 +5,12 @@ import ThuTucLeft from '../components/ThutucLeft'
 import ThuTucRight from '../components/ThutucRight'
 import CreateThutuc from '../components/CreateThutuc'
 import Title from '../components/Title'
-const Thutuc = (props : any) =>{
+const Taothutuc = (props : any) =>{
     const [data,setData] = useState([]);
     return(
         <div>
-            <Title />
-            <div className="row">
-                <ThuTucLeft data={props}/>
-                <ThuTucRight/>
-            </div>
+            <h2>Tạo thủ tục</h2>
         </div>
     )
 }
-export default Thutuc;
+export default Taothutuc;

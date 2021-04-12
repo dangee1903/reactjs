@@ -1,28 +1,17 @@
 import * as React from 'react'
-import { useCallback } from 'react'
+import { useCallback , useEffect } from 'react'
 import { useKeycloak } from '@react-keycloak/web'
 import { useAxios } from '../utils/hooks'
-import Header from './../components/Header';
-
-// import Featch from './../services/FeatchApi';
+import Header from '../components/Header';
+import RouterConfig from '../route-config';
+import {
+   BrowserRouter as Router,
+   Switch,
+ } from "react-router-dom";
 import { render } from '@testing-library/react';
 export default () => {
-  const { keycloak } = useKeycloak()
-  const axiosInstance = useAxios('http://localhost:5000') // see https://github.com/panz3r/jwt-checker-server for a quick implementation
-  const callApi = useCallback(() => {
-    !!axiosInstance.current && axiosInstance.current.get('/jwt/decode')
-  }, [axiosInstance])
   return (
    <div>
-      <Header />
-      <main className="home">
-         <section className="content">
-            <div className="content__wrap container-fluid">
-               <div className="row">
-               </div>
-            </div>
-         </section>
-      </main>
    </div>
-   )
+  )
 }

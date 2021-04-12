@@ -4,9 +4,7 @@ import keycloak from './keycloak'
 import { AppRouter } from './routers'
 const App = () => {
   return (
-    <ReactKeycloakProvider
-      authClient={keycloak}
-    >
+    <ReactKeycloakProvider authClient={keycloak}>
       <AppRouter />
     </ReactKeycloakProvider>
   );

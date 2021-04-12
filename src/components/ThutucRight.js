@@ -99,9 +99,9 @@ const ThutucRight = (props) =>{
                             </tr>
                         </thead>
                         <tbody>
-                            {(tabledata.length) > 1 ? tabledata.map( (data,index) => (
+                            {(tabledata.length) > 0 ? tabledata.map( (data,index) =>(
                                 <tr key={index}>
-                                    <td key={data.id}>{index + 1}</td>
+                                    <td >{index + 1}</td>
                                     <td></td>
                                     <td className="plus">{data.thuTucMa}<img src={Plus} alt="" /></td>
                                     <td className="bold">{data.thuTucTen}</td>

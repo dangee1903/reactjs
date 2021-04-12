@@ -2,34 +2,37 @@ import React, {useEffect , useState , useMemo } from 'react';
 import Plus from './../assets/images/plus.svg';
 import Fetch from '../services/FetchHinhthucnop';
 import FetchNguoiLaoDong from '../services/FetchNguoiLaoDong';
+import Notfound from '../pages/Notfound'
 import { connect} from 'react-redux';
 import './../scss/ThuTucLeft.scss';
 import {actSearch}  from '../actions/index';
 import axios from 'axios'
+import { useKeycloak } from '@react-keycloak/web';
+import {
+    BrowserRouter as Router,
+    useRouteMatch,
+    Link,
+    Switch,
+    Route
 
+} from "react-router-dom";
 const ThutucLeft = (props) =>{
     const [datatablehs, setDatatablehs] = useState([]);
     const [search,setSearch]            = useState(null);
-    const [dataParam,setDataParam]      = useState(null);
     const abc = new Fetch();
+    const {keycloak} = useKeycloak();
     const getData = async () =>{
         const data = await abc.getAll();
         if(data){
             setDatatablehs(data);
         }
     }
-    const getDataLaoDong = async () =>{
-        const data = await abc.getAll();
-        if(data){
-            setDatatablehs(data);
-        }
-    }
     useEffect( () => {
+        console.log(props);
         const data = getData();
     },[]);
     const changeSearch = (value) => {
         props.changeSearchValue(value);
-        setDataParam(value);
     }
     const dataTable = useMemo(()=>{
         let dataThutuc = datatablehs;
@@ -42,9 +45,6 @@ const ThutucLeft = (props) =>{
         }
         return dataThutuc;
     },[datatablehs,search])
-    const dataLaodong = useMemo( ()=>{
-
-    },[dataParam])
     return(
         <div className="col-md-3 left">
             <div className="col-12">
@@ -58,13 +58,13 @@ const ThutucLeft = (props) =>{
                     <h2 onClick={ () => {changeSearch("")}} >Tất cả các thủ tục</h2>
                     <ul>
                         {dataTable.map((data,index)=>(
-                            <li onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>
-                                <div className="left">
+                            <li key={index}>
+                                <div className="left" onClick={() => changeSearch(data.thuTuc_Ma)} key={index}>
                                     {data.thuTuc_Ma}<br></br>
                                     {data.thuTuc_Ten}
                                 </div>
                                 <div className="right">
-                                    <img src={Plus}></img>
+                                    <Link to={`/thutuc?id=${data.thuTuc_Ma}`}><img src={Plus}></img></Link>
                                 </div>
                             </li>
                         ))}

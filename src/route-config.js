@@ -8,7 +8,7 @@ const routes = [
         main : () => <HomePage />
     },
     {
-        path:'/thutuc/:id',
+        path:'/thutuc',
         exact : true,
         main : ({match}) => <ThuTuc match={match}/>
     },
