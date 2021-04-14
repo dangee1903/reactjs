@@ -7,13 +7,11 @@ const Pagination = ({total = 0,itemsPerPage = 10,currentPage = 1,onPageChange}) 
     }, [total, itemsPerPage]);
     const paginationItems = useMemo(() => {
         const pages = [];
-
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
                 <li key={i} className={i === currentPage ? "active" : ""} onClick={() => onPageChange(i)}>{i}</li>
             );
         }
-
         return pages;
     }, [totalPages, currentPage]);
     if (totalPages === 0) return null;
