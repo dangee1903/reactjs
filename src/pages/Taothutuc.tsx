@@ -1,16 +1,23 @@
-import * as React from 'react'
+import * as React from 'react';
 import { useState } from 'react';
-import Header from '../components/Header'
-import ThuTucLeft from '../components/ThutucLeft'
-import ThuTucRight from '../components/ThutucRight'
-import CreateThutuc from '../components/CreateThutuc'
-import Title from '../components/Title'
+import Right from '../components/ThuTuc600/Right';
+import Left from './../components/ThuTuc600/Left';
+import Title from './../components/Title';
 const Taothutuc = (props : any) =>{
-    const [data,setData] = useState([]);
+    let {match} = props;
+    const id    = match.params.id;
+    
     return(
-        <div>
-            <h2>Tạo thủ tục</h2>
+    <div>
+        <Title 
+            title={`Thủ tục ${id}`} 
+            types={id}
+        />
+        <div className="row">
+            <Left />
+            <Right />
         </div>
+    </div>
     )
 }
 export default Taothutuc;

@@ -1,6 +1,8 @@
 import React from 'react';
 import Dot from './../assets/images/doticon.svg';
 import Logo from './../assets/images/CYBERcare.png';
+import { connect } from 'react-redux';
+import {actChangeBHD} from './../actions'
 import {
     BrowserRouter as Router,
     useRouteMatch,
@@ -46,5 +48,4 @@ const Header = (props) =>  {
         </div>
     );
 }
-
 export default Header;

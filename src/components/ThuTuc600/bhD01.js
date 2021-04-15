@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-const CreateThutuc = (props , setDatatype , Datatype) =>  {
+const bhD01 = (props) =>  {
     const textRed = {color: 'red'}
     return (
         <div className="col-md-9 right">
@@ -75,7 +75,7 @@ const CreateThutuc = (props , setDatatype , Datatype) =>  {
                             </tr>
                         </thead>
                         <tbody>
-
+                            
                         </tbody>    
                     </table>
                 </div>
@@ -84,4 +84,4 @@ const CreateThutuc = (props , setDatatype , Datatype) =>  {
     );
 }
 
-export default CreateThutuc;
+export default bhD01;

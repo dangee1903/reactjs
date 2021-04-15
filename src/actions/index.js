@@ -6,3 +6,10 @@ export const actSearch = (value)=> {
         value
     }
 }
+
+export const actChangeBHD = (value)=> {
+    return{
+        type : types.CHANGEBHD,
+        value
+    }
+}

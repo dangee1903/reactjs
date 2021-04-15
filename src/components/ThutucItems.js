@@ -1,11 +1,10 @@
 import React, {useEffect , useState , useMemo } from 'react';
 import Plus from './../assets/images/plus.svg';
-const ThutucItems = ({items,changeS,setdata,dataType,setDataLeft}) =>  {
-    function handelClick(e,value){
-        e.preventDefault();
-        setdata(1);
-        setDataLeft(1);
-    }
+import {
+    BrowserRouter as Router,
+    Link,
+  } from "react-router-dom";
+const ThutucItems = ({items,changeS}) =>  {
     return (
         <ul>
             {items.map((data,index)=>(
@@ -15,7 +14,7 @@ const ThutucItems = ({items,changeS,setdata,dataType,setDataLeft}) =>  {
                         {data.thuTuc_Ten}
                     </div>
                     <div className="right">
-                        <a href="/#" onClick={(e)=> handelClick(e,data.thuTuc_Ma)} ><img src={Plus}></img></a>
+                        <Link to={`/taothutuc/${data.thuTuc_Ma}`} ><img src={Plus}></img></Link>
                     </div>
                 </li>
             ))}

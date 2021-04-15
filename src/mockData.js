@@ -1,4 +1,4 @@
-const DATANGUOILAODONG = [
+export default { DATANGUOILAODONG : [
     {
         "nld_Hoten": "Nguyễn Cao Thiệp",
         "nld_MaNhanVien": "123",
@@ -419,5 +419,4 @@ const DATANGUOILAODONG = [
         "creationTime": "2021-03-30T23:46:55.0247814+07:00",
         "id": 281
     }
-];
-export default {DATANGUOILAODONG};
+]}

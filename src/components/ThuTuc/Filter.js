@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-import Plus from './../assets/images/plus.svg';
+import Plus from './../../assets/images/plus.svg';
 const Filter = ({onSearch,onGuiBH,item}) =>  {
     const [search, setSearch] = useState("");
     const [guiBH, setGuiBH] = useState("");

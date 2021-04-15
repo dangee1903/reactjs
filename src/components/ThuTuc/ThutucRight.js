@@ -1,13 +1,12 @@
 import React, {useEffect , useState , useMemo } from 'react';
-import FeatchThutuc from '../services/FetchThutuc';
+import FeatchThutuc from './../../services/FetchThutuc';
 import Moment from 'react-moment';
 import Filter from './Filter';
-import Pagination from './Pagination';
-import Arrow from './../assets/images/arrowTop.svg';
-import {actSearch}  from './../actions/index';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import Plus from './../assets/images/plus.svg';
-import './../scss/ThuTucLeft.scss';
+import Pagination from './../Pagination';
+import Arrow from './../../assets/images/arrowTop.svg';
+import { connect} from 'react-redux';
+import Plus from './../../assets/images/plus.svg';
+import './../../scss/ThuTucLeft.scss';
 const ThutucRight = (props) =>{
     const [datatablehs, setDatatablehs] = useState([{content:[]}]);
     const [search, setSearch]           = useState("");
@@ -26,12 +25,12 @@ const ThutucRight = (props) =>{
     useEffect( () => {
         getData();
     },[]);
+
     const tabledata = useMemo(() => {
         let tabledata = datatablehs;
         if (search) {
             tabledata = tabledata.filter(
-                data =>
-                    data.thuTucTen.toLowerCase().includes(search.toLowerCase())
+                data => data.thuTucTen.toLowerCase().includes(search.toLowerCase())
             );
         }
         if (guiBH === 3) {
@@ -124,11 +123,4 @@ const mapStateToProps = state => {
         search : state.search
     }
 }
-// const mapDispatchToProps = (dispatch,ownProps) => {
-//     return {
-//         changeSearchValue: (value) => {
-//             dispatch(actSearch(value));
-//         }
-//     }
-// }
 export default connect(mapStateToProps,null)(ThutucRight);
